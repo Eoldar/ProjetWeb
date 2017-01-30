@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <title>Leaf</title>
+		<meta name="GJ">
+		<link rel="stylesheet" href="leafstyle.css">
+		<script src="leaflet.js"></script>
+	</head>
+
+	<body>
+
+	<div id="map">
+	</div>
+
+  <div id="coordinates">
+		<p>  </p>
+	</div>
+
+  <form id="follow_ISS" method="POST">
+		<input id="box_follow_ISS" type="checkbox" name="box_follow_ISS" value="check"/>Follow the ISS
+	</form>
+
+  <form id="zoom_ISS" method="POST">
+    <input id="radio_zoom_ISS" type="radio" name="smartphone" value="7"> Smartphone
+    <input id="radio_zoom_ISS" type="radio" name="reflex" value="10"> Reflex
+    <input id="radio_zoom_ISS" type="radio" name="teleobjective" value="13"> Teleobjective
+  </form>
+
+	<script src="ajax.js"></script>
+	</body>
+</html>
