@@ -72,6 +72,8 @@
 		if (teleobjective_zoom_ISS.checked){
 			zoom=teleobjective_zoom_ISS.value;
 		};
-		var picture_ISS=document.getElementById("picture")
-		picture_ISS.innerHTML="<img src='https://maps.googleapis.com/maps/api/staticmap?center="+latitude+",+"+longitude+"&zoom="+zoom+"&scale=false&size=600x300&maptype=roadmap&format=png&visual_refresh=true'/>"
+		if (zoom!=0){
+			var picture_ISS=document.getElementById("picture")
+			picture_ISS.innerHTML="<img src='https://maps.googleapis.com/maps/api/staticmap?center="+latitude+",+"+longitude+"&zoom="+zoom+"&scale=false&size=600x300&maptype=roadmap&format=png&visual_refresh=true'/>"
+		}	
 	})
