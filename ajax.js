@@ -12,10 +12,11 @@
 	var position_ISS = new Array(new Array());
 	var latitude=0;
 	var longitude=0;
+	var zoom=0;
 
 	function send_request(){
 		var ajax = new XMLHttpRequest();
-		ajax.open('GET', "http://api.open-notify.org/iss-now.json?nocache=" + Math.random(), false);
+		ajax.open('GET', "http://api.open-notify.org/iss-now.json?nocache=" + Math.random(), true);
 		ajax.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		ajax.addEventListener('readystatechange',  function(e) {
 			if(ajax.readyState == 4 && ajax.status == 200) {
@@ -23,7 +24,7 @@
 				markers.clearLayers();
 				latitude = response.iss_position.latitude;
 				longitude = response.iss_position.longitude;
-				var icone = L.icon({iconUrl:'Images/ISS.png', iconSize:[50, 50], iconAnchor:[25,0]});
+				var icone = L.icon({iconUrl:'Images/ISS.png', iconSize:[50, 50], iconAnchor:[25,25], popupAnchor:[0,-25]});
 				var marker = L.marker([latitude, longitude],{icon: icone}).bindPopup("The ISS is actually here ! ");
 				markers.addLayer(marker);
 
@@ -55,3 +56,22 @@
 	};
 
 	setInterval(function(){send_request()},3000);
+
+	var zoom_picture_ISS=document.getElementById("picture_submit");
+	zoom_picture_ISS.addEventListener('click',function(ev){
+		ev.preventDefault();
+		var smartphone_zoom_ISS=document.getElementById("smartphone_zoom_ISS");
+		var reflex_zoom_ISS=document.getElementById("reflex_zoom_ISS");
+		var teleobjective_zoom_ISS=document.getElementById("teleobjective_zoom_ISS");
+		if (smartphone_zoom_ISS.checked){
+			zoom=smartphone_zoom_ISS.value;
+		};
+		if (reflex_zoom_ISS.checked){
+			zoom=reflex_zoom_ISS.value;
+		};
+		if (teleobjective_zoom_ISS.checked){
+			zoom=teleobjective_zoom_ISS.value;
+		};
+		var picture_ISS=document.getElementById("picture")
+		picture_ISS.innerHTML="<img src='https://maps.googleapis.com/maps/api/staticmap?center="+latitude+",+"+longitude+"&zoom="+zoom+"&scale=false&size=600x300&maptype=roadmap&format=png&visual_refresh=true'/>"
+	})
