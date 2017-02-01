@@ -1,9 +1,13 @@
 //Bouh :p
 
+
 	var map = L.map('map').setView([0,0], 2);
-	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+	L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
 	}).addTo(map);
+	/*L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+	}).addTo(map);*/
 	L.control.scale().addTo(map);
 
 	var markers = new L.FeatureGroup();
@@ -36,7 +40,7 @@
 				old_lng=longitude;
 
 				for (var j=0; j<position_ISS.length;j++){
-					var ligne=L.polyline(position_ISS[i]);
+					var ligne=L.polyline(position_ISS[i], {color:'red', weight: 5, opacity:1});
 					markers.addLayer(ligne);
 				};
 
@@ -56,7 +60,7 @@
 	};
 
 
-	setInterval(function(){send_request()},500);
+	setInterval(function(){send_request()},1000);
 
 
 	var zoom_picture_ISS=document.getElementById("picture_submit");
@@ -66,14 +70,11 @@
 		var reflex_zoom_ISS=document.getElementById("reflex_zoom_ISS");
 		var teleobjective_zoom_ISS=document.getElementById("teleobjective_zoom_ISS");
 		if (smartphone_zoom_ISS.checked){
-			zoom=smartphone_zoom_ISS.value;
-		};
+			zoom=smartphone_zoom_ISS.value;};
 		if (reflex_zoom_ISS.checked){
-			zoom=reflex_zoom_ISS.value;
-		};
+			zoom=reflex_zoom_ISS.value;};
 		if (teleobjective_zoom_ISS.checked){
-			zoom=teleobjective_zoom_ISS.value;
-		};
+			zoom=teleobjective_zoom_ISS.value;};
 		if (zoom!=0){
 			var picture_ISS=document.getElementById("picture")
 			picture_ISS.innerHTML="<img src='https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/static/"+longitude+","+latitude+","+zoom+","+Math.random()*360+",50/600x400?access_token=pk.eyJ1IjoiZW9sZGFyIiwiYSI6ImNpeW4xOG1hMjAwNGozM3FsYnFheWJzOXYifQ.hZAFQxA9xQWMObZqfWdtog'/>"
