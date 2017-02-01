@@ -55,7 +55,9 @@
 		}
 	};
 
-	setInterval(function(){send_request()},3000);
+
+	setInterval(function(){send_request()},500);
+
 
 	var zoom_picture_ISS=document.getElementById("picture_submit");
 	zoom_picture_ISS.addEventListener('click',function(ev){
@@ -74,6 +76,20 @@
 		};
 		if (zoom!=0){
 			var picture_ISS=document.getElementById("picture")
-			picture_ISS.innerHTML="<img src='https://maps.googleapis.com/maps/api/staticmap?center="+latitude+",+"+longitude+"&zoom="+zoom+"&scale=false&size=600x300&maptype=roadmap&format=png&visual_refresh=true'/>"
-		}	
+			picture_ISS.innerHTML="<img src='https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/static/"+longitude+","+latitude+","+zoom+","+Math.random()*360+",50/600x400?access_token=pk.eyJ1IjoiZW9sZGFyIiwiYSI6ImNpeW4xOG1hMjAwNGozM3FsYnFheWJzOXYifQ.hZAFQxA9xQWMObZqfWdtog'/>"
+			var ajax2 = new XMLHttpRequest();
+			ajax2.open('GET', "http://api.geonames.org/findNearbyPlaceNameJSON?lat="+latitude+"&lng="+longitude+"&username=eoldar", true);
+			ajax2.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			ajax2.addEventListener('readystatechange',  function(e) {
+				if(ajax2.readyState == 4 && ajax2.status == 200) {
+					response=JSON.parse(ajax2.responseText);
+					var message=document.getElementById("message");
+					if (response.geonames.length==0){
+						message.innerHTML="Hello World";}
+					else {
+						message.innerHTML="Hello "+response.geonames[0].name+", "+response.geonames[0].countryName;}
+				}
+			});
+			ajax2.send();
+		}
 	})
