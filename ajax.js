@@ -48,7 +48,8 @@
 				};
 				var ligne_current=L.polyline(position_ISS.slice(indice_trait[indice_trait.length-1],indice_trait[indice_trait.length-1]+i), {color:'red', weight: 5, opacity:1});
 				markers.addLayer(ligne_current);
-
+				console.log(indice_trait);
+				console.log(position_ISS);
 				map.addLayer(markers);
 			};});
 		ajax.send();
@@ -91,10 +92,11 @@
 					response=ajax2.responseXML;
 					var Json=xmlToJson(response);
 					var message=document.getElementById("message");
+					console.log(Json.geonames);
 					if (Json.geonames['#text'].length==2){
 						message.innerHTML="Hello "+Json.geonames.ocean.name['#text'];}
 					else {
-						message.innerHTML="Hello "+Json.geonames.geoname[4].toponymName['#text']+", "+Json.geonames.geoname[2].toponymName['#text']+", "+Json.geonames.geoname[1].toponymName['#text'];}
+						message.innerHTML="Hello "+Json.geonames.geoname[Json.geonames.geoname.length-1].toponymName['#text']+", "+Json.geonames.geoname[2].toponymName['#text']+", "+Json.geonames.geoname[1].toponymName['#text'];}
 				}
 			});
 			ajax2.send();
