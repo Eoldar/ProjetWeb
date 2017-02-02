@@ -20,6 +20,8 @@
 	var zoom=0;
 	var i=0;
 
+	send_request();
+
 	function send_request(){
 		var ajax = new XMLHttpRequest();
 		ajax.open('GET', "http://api.open-notify.org/iss-now.json?nocache=" + Math.random(), true);
