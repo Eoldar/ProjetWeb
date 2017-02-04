@@ -1,15 +1,20 @@
-#map{position:absolute;width:50%;height:50%;}
+#title{z-index:10;background-color:white;text-align:center;}
 
-#coordinates{position:absolute;top:95%;left:35%;width:300px;z-index:10;background-color:white;text-align:center;}
+#map{position:absolute;top:8.5%;width:99%;height:90.5%;border:3px solid black;border-radius:5px;}
 
-#picture{position:absolute;top:50%;left:50%;width:250px;height:250px;z-index:10;text-align:center;}
+#coordinates{position:relative;margin-top:25px;margin-left:calc(50% - 175px);z-index:10;width:350px;text-align:center;background-color:white;border:3px solid black;border-radius:5px;}
 
-#message{position:absolute;top:25%;left:75%;width:250px;height:250px;z-index:10;text-align:center;}
+#visualisation{position:absolute;bottom:0px;right:0px;margin-right:25px;margin-bottom:35px;z-index:9;border:2px solid white;border-radius:5px;}
+#message{position:absolute;width:100%;margin-top:10px;text-align:center;color:white;font-size:1.3em;}
+#cross{position:absolute;width:100%;}
+#cross img{margin-top:5px;margin-right:5px;float:right;width:20px;height:20px;z-index:10;}
 
-#follow_ISS{position:absolute;top:95%;left:22%;width:110px;z-index:10;background-color:white;text-align:center;}
+#follow_ISS{position:absolute;top:2%;left:15%;z-index:10;background-color:white;text-align:center;font-size:1.5em;border:3px outset black;border-radius:5px;padding:5px;}
 
-#zoom_ISS{position:absolute;top:88%;left:75%;width:120px;z-index:10;background-color:white;text-align:center;}
+#zoom_ISS{position:relative;top:10%;left:75%;width:250px;z-index:10;background-color:white;font-size:1.3em;}
 
+
+/*STYLE POUR LA MAP*/
 
 /* required styles */
 

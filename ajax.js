@@ -37,7 +37,7 @@
 				markers.addLayer(marker);
 
 				var coords=document.getElementById("coordinates");
-				coords.innerHTML="The ISS' coordinates are <br> Latitude : "+ latitude + " ---- Longitude : " + longitude;
+				coords.innerHTML="<p>The ISS' coordinates are <br> Latitude : "+ latitude + " ---- Longitude : " + longitude+"</p>";
 
 				if (position_ISS.length!=0 && old_lng<=180 && old_lng>=170 && longitude>=-180 && longitude<=-170){indice_trait.push(position_ISS.length);i=0;};
 				i++;
@@ -50,8 +50,6 @@
 				};
 				var ligne_current=L.polyline(position_ISS.slice(indice_trait[indice_trait.length-1],indice_trait[indice_trait.length-1]+i), {color:'red', weight: 5, opacity:1});
 				markers.addLayer(ligne_current);
-				console.log(indice_trait);
-				console.log(position_ISS);
 				map.addLayer(markers);
 			};});
 		ajax.send();
@@ -70,7 +68,6 @@
 
 	setInterval(function(){send_request()},5000);
 
-
 	var zoom_picture_ISS=document.getElementById("picture_submit");
 	zoom_picture_ISS.addEventListener('click',function(ev){
 		ev.preventDefault();
@@ -84,8 +81,22 @@
 		if (teleobjective_zoom_ISS.checked){
 			zoom=teleobjective_zoom_ISS.value;};
 		if (zoom!=0){
-			var picture_ISS=document.getElementById("picture")
-			picture_ISS.innerHTML="<img src='https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/static/"+longitude+","+latitude+","+zoom+","+Math.random()*360+",50/600x400?access_token=pk.eyJ1IjoiZW9sZGFyIiwiYSI6ImNpeW4xOG1hMjAwNGozM3FsYnFheWJzOXYifQ.hZAFQxA9xQWMObZqfWdtog'/>"
+			var picture_ISS=document.getElementById("picture");
+			var height=Math.round(window.innerHeight/2);
+			var width=Math.round(window.innerWidth/3);
+			picture_ISS.innerHTML="<img src='https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/"+longitude+","+latitude+","+zoom+","+Math.random()*360+",50/"+width+"x"+height+"?access_token=pk.eyJ1IjoiZW9sZGFyIiwiYSI6ImNpeW4xOG1hMjAwNGozM3FsYnFheWJzOXYifQ.hZAFQxA9xQWMObZqfWdtog' alt='PictureFromISS'/>"
+
+			var picture_cross=document.getElementById("cross");
+			picture_cross.innerHTML="<img id='cross_click' src='Images/Cross.png' alt='Exit'>";
+			document.getElementById("cross_click").addEventListener('click',function(ev){
+				var picture_ISS=document.getElementById("picture");
+				var message=document.getElementById("message");
+				var exit=document.getElementById("cross");
+				picture_ISS.innerHTML="";
+				message.innerHTML="";
+				exit.innerHTML="";
+			});
+
 			var ajax2 = new XMLHttpRequest();
 			ajax2.open('GET', "http://api.geonames.org/extendedFindNearby?lat="+latitude+"&lng="+longitude+"&username=eoldar", true);
 			ajax2.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -94,7 +105,6 @@
 					response=ajax2.responseXML;
 					var Json=xmlToJson(response);
 					var message=document.getElementById("message");
-					console.log(Json.geonames);
 					if (Json.geonames['#text'].length==2){
 						message.innerHTML="Hello "+Json.geonames.ocean.name['#text'];}
 					else {
@@ -104,8 +114,6 @@
 			ajax2.send();
 		}
 	})
-
-
 
 	function xmlToJson(xml) {
 		var obj = {};
