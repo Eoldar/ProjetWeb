@@ -117,7 +117,14 @@
 			});
 			ajax2.send();
 		}
-	})
+	});
+
+	var speed_ISS=document.getElementById("range_speed_ISS");
+	speed_ISS.addEventListener('change',function(ev){
+		console.log(speed_ISS.value);
+		var display_speed=document.getElementById("display_speed");
+		display_speed.innerHTML="The ISS' speed is : "+speed_ISS.value+" km/h"
+	});
 
 	function xmlToJson(xml) {
 		var obj = {};

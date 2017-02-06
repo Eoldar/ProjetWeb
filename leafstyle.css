@@ -2,24 +2,34 @@
 @font-face{font-family: "Trajan";src:url("FontFamily/TrajanPro-Regular.ttf")}
 body{font-family: "Trajan";background-color:#D5FCBB;}
 
+#follow_ISS{position:absolute;top:1.5%;left:0.5%;z-index:10;background-color:white;text-align:center;font-size:1.4em;border:3px solid black;border-radius:5px;padding:6px;}
+
+#manual_speed{position:absolute;top:1.5%;left:15%;z-index:10;background-color:white;text-align:center;font-size:1.4em;border:3px solid black;border-radius:5px;padding:6px;}
+
 #title{font-family:"Apple Chancery";z-index:10;background-color:white;text-align:center;background-color:#D5FCBB;}
+
+#speed_ISS{position:absolute;top:3%;right:10%;z-index:10;}
+
+#logo img{position:absolute;height:65px;width:65px;z-index:10;right:5px;top:5px;border:3px solid black;border-radius:5px;}
 
 #map{position:absolute;top:8.5%;width:99%;height:90.5%;border:3px solid black;border-radius:5px;}
 
 #coordinates{position:relative;margin-top:25px;margin-left:calc(50% - 175px);z-index:10;width:390px;text-align:center;background-color:white;border:3px solid black;border-radius:5px;}
 
-#visualisation{position:absolute;bottom:0px;right:0px;margin-right:25px;margin-bottom:35px;z-index:9;border:2px solid white;border-radius:5px;}
-#message{position:absolute;width:100%;margin-top:10px;text-align:center;color:white;font-size:1.3em;}
+#display_speed{position:absolute;right:10%;top:10%;z-index:10;width:300px;text-align:center;background-color:white;border:3px solid black;border-radius:5px;}
+
+#visualisation{position:absolute;bottom:0px;right:0px;margin-right:25px;margin-bottom:35px;z-index:9;}
+#picture img{border:3px solid black;border-radius:5px;}
+#message{position:absolute;width:100%;margin-top:10px;text-align:center;color:white;font-size:1.3em;padding-top:15px;padding-left: 5px;padding-right: 5px;}
 #cross{position:absolute;width:100%;}
 #cross img{margin-top:5px;margin-right:5px;float:right;width:20px;height:20px;z-index:10;}
 #cross img:hover{cursor:pointer;}
-
-#follow_ISS{position:absolute;top:2%;left:10%;z-index:10;background-color:white;text-align:center;font-size:1.5em;border:3px outset black;border-radius:5px;padding:6px;}
 
 #zoom_ISS{position:absolute;bottom:5%;right:5%;width:190px;z-index:5;background-color:white;font-size:1.3em;border:3px solid black;border-radius:5px;padding:5px;}
 #picture_submit{position:relative;margin-left:calc(50% - 80px);}
 
 /*STYLE DE BOUTON*/
+/*STYLE BOX*/
 input[type=checkbox]:not(old),
 input[type=radio   ]:not(old){
   width     : 2em;
@@ -78,7 +88,7 @@ input[type=radio]:not(old):checked + label > span > span{
   display          : block;
   width            : 0.5em;
   height           : 0.5em;
-  margin           : 0.125em;
+  margin           : 0.150em;
   border           : 0.0625em solid rgb(115,153,77);
   border-radius    : 0.125em;
   background       : rgb(153,204,102);
@@ -89,19 +99,82 @@ input[type=radio]:not(old):checked + label > span > span{
   background-image :         linear-gradient(rgb(179,217,140),rgb(153,204,102));
 }
 
+/*STYLE TWEET*/
 input[type=submit]{
 	font-size: 0.8em;
-	background-color: #abc738;
-	border: 3px solid #abc738;
+	background-color: #84DF5F;
+	border: 3px outset #84DF5F;
 	border-radius: 5px;
 }
 
 input[type=submit]:hover{
-	background-color: #87a800;
-	border: 3px solid #87a800;
+	background-color: #72BF52;
+	border: 3px inset #72BF52;
 	border-radius: 5px;
 	cursor:pointer;
 }
+
+/*STYLE CURSEUR*/
+input[type=range] {
+  -webkit-appearance: none;
+  width: 300px;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 20px;
+  cursor: pointer;
+  background: #50555C;
+  border-radius: 14px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  height: 20px;
+  width: 40px;
+  border-radius: 12px;
+  background: #39A93A;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #50555C;
+}
+
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 21px;
+  cursor: pointer;
+  background: #50555C;
+  border-radius: 14px;
+}
+
+input[type=range]::-moz-range-thumb {
+  height: 19px;
+  width: 40px;
+  border-radius: 12px;
+	border:1px outset #72BF52;
+  background: #39A93A;
+  cursor: pointer;
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 19px;
+  cursor: pointer;
+}
+
+input[type=range]::-ms-thumb {
+  height: 18px;
+  width: 40px;
+  border-radius: 12px;
+  background: #39A93A;
+  cursor: pointer;
+}
+
+
+
+
 
 /*STYLE POUR LA MAP*/
 

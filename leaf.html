@@ -3,50 +3,68 @@
     <head>
 	      <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
-        <title>Leaf</title>
+        <title>TALE</title>
 	      <meta name="GJ">
 	      <link rel="stylesheet" href="leafstyle.css">
+        <link rel="icon" type="image/png" href="Images/Logo.png"/>
 	      <script src="leaflet.js"></script>
     </head>
 
+
 	<body>
-
-  <div id="title">
-    <h1>LE TITRE C'EST BIEN</h1>
-  </div>
-
-	<div id="map">
-	</div>
-
-  <div id="coordinates">
-	</div>
-
-  <form id="follow_ISS" method="POST">
-		<input id="box_follow_ISS" type="checkbox" name="box_follow_ISS" value="check"/>
-    <label for="box_follow_ISS"><span><span></span></span>Follow the ISS</label>
-	</form>
-
-  <form id="zoom_ISS" method="POST">
-    <input id="smartphone_zoom_ISS" type="radio" name="radio_zoom_ISS" value="7">
-    <label for="smartphone_zoom_ISS"><span><span></span></span>Smartphone</label>
-    <input id="reflex_zoom_ISS" type="radio" name="radio_zoom_ISS" value="10">
-    <label for="reflex_zoom_ISS"><span><span></span></span>Reflex<br></label>
-    <input id="teleobjective_zoom_ISS" type="radio" name="radio_zoom_ISS" value="13">
-    <label for="teleobjective_zoom_ISS"><span><span></span></span>Telephoto</label>
-    <input id="picture_submit" type="submit" name="radio_zoom_ISS" value="Tweet like Pesquet">
-  </form>
-
-  <div id="visualisation">
-    <div id="message">
+    <div id="logo">
+      <img src="Images/Logo.png" alt="Logo">
     </div>
 
-    <div id="cross">
+    <form id="follow_ISS" method="POST">
+    	<input id="box_follow_ISS" type="checkbox" name="box_follow_ISS" value="check"/>
+      <label for="box_follow_ISS"><span><span></span></span>Follow the ISS</label>
+    </form>
+
+    <form id="manual_speed" method="POST">
+    	<input id="box_manual_speed" type="checkbox" name="box_manual_speed" value="check"/>
+      <label for="box_manual_speed"><span><span></span></span>Manual Speed</label>
+    </form>
+
+    <div id="title">
+      <h1>TALE - Telling About your Life to Everybody</h1>
     </div>
 
-    <div id="picture">
-    </div>
-  </div>
+    <form id="speed_ISS" methode="POST">
+      <input id="range_speed_ISS" type="range" value="27600" max="50000" min="0" step="1000">
+    </form>
 
-	<script src="ajax.js"></script>
+  	<div id="map">
+  	</div>
+
+    <div id="coordinates">
+  	</div>
+
+    <div id="display_speed">
+      The ISS' speed is : 27600 km/h
+    </div>
+
+    <form id="zoom_ISS" method="POST">
+      <input id="smartphone_zoom_ISS" type="radio" name="radio_zoom_ISS" value="7">
+      <label for="smartphone_zoom_ISS"><span><span></span></span>Smartphone</label>
+      <input id="reflex_zoom_ISS" type="radio" name="radio_zoom_ISS" value="10">
+      <label for="reflex_zoom_ISS"><span><span></span></span>Reflex<br></label>
+      <input id="teleobjective_zoom_ISS" type="radio" name="radio_zoom_ISS" value="13">
+      <label for="teleobjective_zoom_ISS"><span><span></span></span>Telephoto</label>
+      <input id="picture_submit" type="submit" name="radio_zoom_ISS" value="Tweet like Pesquet">
+    </form>
+
+    <div id="visualisation">
+      <div id="message">
+      </div>
+
+      <div id="cross">
+      </div>
+
+      <div id="picture">
+      </div>
+    </div>
+
+	  <script src="ajax.js"></script>
 	</body>
 </html>
