@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	      <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
         <title>Leaf</title>
-	<meta name="GJ">
-	<link rel="stylesheet" href="leafstyle.css">
-	<script src="leaflet.js"></script>
+	      <meta name="GJ">
+	      <link rel="stylesheet" href="leafstyle.css">
+	      <script src="leaflet.js"></script>
     </head>
 
 	<body>
@@ -22,14 +22,18 @@
 	</div>
 
   <form id="follow_ISS" method="POST">
-		<input id="box_follow_ISS" type="checkbox" name="box_follow_ISS" value="check"/>Follow the ISS
+		<input id="box_follow_ISS" type="checkbox" name="box_follow_ISS" value="check"/>
+    <label for="box_follow_ISS"><span><span></span></span>Follow the ISS</label>
 	</form>
 
   <form id="zoom_ISS" method="POST">
-    <input id="smartphone_zoom_ISS" type="radio" name="radio_zoom_ISS" value="7"> Smartphone
-    <input id="reflex_zoom_ISS" type="radio" name="radio_zoom_ISS" value="10"> Reflex <br>
-    <input id="teleobjective_zoom_ISS" type="radio" name="radio_zoom_ISS" value="13"> Teleobjective
-    <input id="picture_submit" type="submit" name="radio_zoom_ISS" value="Tweet comme Pesquet">
+    <input id="smartphone_zoom_ISS" type="radio" name="radio_zoom_ISS" value="7">
+    <label for="smartphone_zoom_ISS"><span><span></span></span>Smartphone</label>
+    <input id="reflex_zoom_ISS" type="radio" name="radio_zoom_ISS" value="10">
+    <label for="reflex_zoom_ISS"><span><span></span></span>Reflex<br></label>
+    <input id="teleobjective_zoom_ISS" type="radio" name="radio_zoom_ISS" value="13">
+    <label for="teleobjective_zoom_ISS"><span><span></span></span>Telephoto</label>
+    <input id="picture_submit" type="submit" name="radio_zoom_ISS" value="Tweet like Pesquet">
   </form>
 
   <div id="visualisation">

@@ -1,18 +1,107 @@
-#title{z-index:10;background-color:white;text-align:center;}
+@font-face{font-family: "Apple Chancery";src:url("FontFamily/Apple Chancery.ttf")}
+@font-face{font-family: "Trajan";src:url("FontFamily/TrajanPro-Regular.ttf")}
+body{font-family: "Trajan";background-color:#D5FCBB;}
+
+#title{font-family:"Apple Chancery";z-index:10;background-color:white;text-align:center;background-color:#D5FCBB;}
 
 #map{position:absolute;top:8.5%;width:99%;height:90.5%;border:3px solid black;border-radius:5px;}
 
-#coordinates{position:relative;margin-top:25px;margin-left:calc(50% - 175px);z-index:10;width:350px;text-align:center;background-color:white;border:3px solid black;border-radius:5px;}
+#coordinates{position:relative;margin-top:25px;margin-left:calc(50% - 175px);z-index:10;width:390px;text-align:center;background-color:white;border:3px solid black;border-radius:5px;}
 
 #visualisation{position:absolute;bottom:0px;right:0px;margin-right:25px;margin-bottom:35px;z-index:9;border:2px solid white;border-radius:5px;}
 #message{position:absolute;width:100%;margin-top:10px;text-align:center;color:white;font-size:1.3em;}
 #cross{position:absolute;width:100%;}
 #cross img{margin-top:5px;margin-right:5px;float:right;width:20px;height:20px;z-index:10;}
+#cross img:hover{cursor:pointer;}
 
-#follow_ISS{position:absolute;top:2%;left:15%;z-index:10;background-color:white;text-align:center;font-size:1.5em;border:3px outset black;border-radius:5px;padding:5px;}
+#follow_ISS{position:absolute;top:2%;left:10%;z-index:10;background-color:white;text-align:center;font-size:1.5em;border:3px outset black;border-radius:5px;padding:6px;}
 
-#zoom_ISS{position:relative;top:10%;left:75%;width:250px;z-index:10;background-color:white;font-size:1.3em;}
+#zoom_ISS{position:absolute;bottom:5%;right:5%;width:190px;z-index:5;background-color:white;font-size:1.3em;border:3px solid black;border-radius:5px;padding:5px;}
+#picture_submit{position:relative;margin-left:calc(50% - 80px);}
 
+/*STYLE DE BOUTON*/
+input[type=checkbox]:not(old),
+input[type=radio   ]:not(old){
+  width     : 2em;
+  margin    : 0;
+  padding   : 0;
+  font-size : 1em;
+  opacity   : 0;
+}
+
+input[type=checkbox]:not(old) + label,
+input[type=radio   ]:not(old) + label{
+  display      : inline;;
+  margin-left  : -2.4em;
+  line-height  : 1.5em;
+}
+
+input[type=checkbox]:not(old) + label > span,
+input[type=radio   ]:not(old) + label > span{
+  display          : inline-block;
+  width            : 0.875em;
+  height           : 0.875em;
+  margin           : 0.25em 0.5em 0.25em 0.25em;
+  border           : 0.0625em solid rgb(192,192,192);
+  border-radius    : 0.25em;
+  background       : rgb(224,224,224);
+  background-image :    -moz-linear-gradient(rgb(240,240,240),rgb(224,224,224));
+  background-image :     -ms-linear-gradient(rgb(240,240,240),rgb(224,224,224));
+  background-image :      -o-linear-gradient(rgb(240,240,240),rgb(224,224,224));
+  background-image : -webkit-linear-gradient(rgb(240,240,240),rgb(224,224,224));
+  background-image :         linear-gradient(rgb(240,240,240),rgb(224,224,224));
+  vertical-align   : bottom;
+}
+
+input[type=checkbox]:not(old):checked + label > span,
+input[type=radio   ]:not(old):checked + label > span{
+  background-image :    -moz-linear-gradient(rgb(224,224,224),rgb(240,240,240));
+  background-image :     -ms-linear-gradient(rgb(224,224,224),rgb(240,240,240));
+  background-image :      -o-linear-gradient(rgb(224,224,224),rgb(240,240,240));
+  background-image : -webkit-linear-gradient(rgb(224,224,224),rgb(240,240,240));
+  background-image :         linear-gradient(rgb(224,224,224),rgb(240,240,240));
+}
+
+input[type=checkbox]:not(old):checked + label > span:before{
+  content     : '✓';
+  display     : block;
+  width       : 1em;
+  color       : rgb(153,204,102);
+  font-size   : 0.875em;
+  line-height : 1em;
+  text-align  : center;
+  text-shadow : 0 0 0.0714em rgb(115,153,77);
+  font-weight : bold;
+}
+
+input[type=radio]:not(old):checked + label > span > span{
+  display          : block;
+  width            : 0.5em;
+  height           : 0.5em;
+  margin           : 0.125em;
+  border           : 0.0625em solid rgb(115,153,77);
+  border-radius    : 0.125em;
+  background       : rgb(153,204,102);
+  background-image :    -moz-linear-gradient(rgb(179,217,140),rgb(153,204,102));
+  background-image :     -ms-linear-gradient(rgb(179,217,140),rgb(153,204,102));
+  background-image :      -o-linear-gradient(rgb(179,217,140),rgb(153,204,102));
+  background-image : -webkit-linear-gradient(rgb(179,217,140),rgb(153,204,102));
+  background-image :         linear-gradient(rgb(179,217,140),rgb(153,204,102));
+}
+
+input[type=submit]{
+	font-size: 0.8em;
+	background-color: #abc738;
+	border: 3px solid #abc738;
+	border-radius: 5px;
+}
+
+input[type=submit]:hover{
+	background-color: #87a800;
+	border: 3px solid #87a800;
+	border-radius: 5px;
+	cursor:pointer;
+}
 
 /*STYLE POUR LA MAP*/
 
