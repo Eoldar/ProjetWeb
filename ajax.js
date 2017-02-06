@@ -1,7 +1,7 @@
 //Bouh :p
 
 
-	var map = L.map('map').setView([0,0], 2);
+	var map = L.map('map').setView([20,0], 3);
 	L.tileLayer('http://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
 	maxZoom: 17,
 	attribution: 'Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
@@ -23,6 +23,8 @@
 	var longitude=0;
 	var zoom=0;
 	var i=0;
+	var Interval_ISS;
+	var Interval_Homemade;
 
 	send_request();
 
@@ -36,12 +38,16 @@
 				markers.clearLayers();
 				latitude = response.iss_position.latitude;
 				longitude = response.iss_position.longitude;
-				var icone = L.icon({iconUrl:'Images/ISS.png', iconSize:[50, 50], iconAnchor:[25,25], popupAnchor:[0,-25]});
-				var marker = L.marker([latitude, longitude],{icon: icone}).bindPopup("The ISS is actually here ! ");
+				var icone = L.icon({iconUrl:'Pictures/ISS.png', iconSize:[50, 50], iconAnchor:[25,25], popupAnchor:[0,-25]});
+				var marker = L.marker([latitude, longitude],{icon: icone});
 				markers.addLayer(marker);
 
 				var coords=document.getElementById("coordinates");
-				coords.innerHTML="<p>The ISS' coordinates are <br> Latitude : "+ latitude + " ---- Longitude : " + longitude+"</p>";
+				if (latitude>=0){var LAT="N"}
+				else if (latitude<0){var LAT="S"};
+				if (longitude>=0){var LON="E"}
+				else if (longitude<0){var LON="W"};
+				coords.innerHTML="<p>The ISS' coordinates are :<br> Latitude : "+Math.abs(latitude)+"° "+LAT+" ---- Longitude : "+Math.abs(longitude)+"° "+LON+"</p>";
 
 				if (position_ISS.length!=0 && old_lng<=180 && old_lng>=170 && longitude>=-180 && longitude<=-170){indice_trait.push(position_ISS.length);i=0;};
 				i++;
@@ -63,14 +69,19 @@
 			if (box_follow_ISS.checked){
 				map.setView([latitude, longitude],5);
 			}
+			else{
+				map.setView([latitude, longitude],3);
+			}
 		});
 		if (box_follow_ISS.checked){
 			map.setView([latitude, longitude],5);
 		}
 	};
 
+	function ask_speed(){
+		console.log("1");
+	}
 
-	setInterval(function(){send_request()},5000);
 
 	var zoom_picture_ISS=document.getElementById("picture_submit");
 	zoom_picture_ISS.addEventListener('click',function(ev){
@@ -91,7 +102,7 @@
 			picture_ISS.innerHTML="<img src='https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/"+longitude+","+latitude+","+zoom+","+Math.random()*360+",50/"+width+"x"+height+"?access_token=pk.eyJ1IjoiZW9sZGFyIiwiYSI6ImNpeW4xOG1hMjAwNGozM3FsYnFheWJzOXYifQ.hZAFQxA9xQWMObZqfWdtog' alt='PictureFromISS'/>"
 
 			var picture_cross=document.getElementById("cross");
-			picture_cross.innerHTML="<img id='cross_click' src='Images/Cross.png' alt='Exit'>";
+			picture_cross.innerHTML="<img id='cross_click' src='Pictures/Cross.png' alt='Exit'>";
 			document.getElementById("cross_click").addEventListener('click',function(ev){
 				var picture_ISS=document.getElementById("picture");
 				var message=document.getElementById("message");
@@ -119,13 +130,34 @@
 		}
 	});
 
-	var speed_ISS=document.getElementById("range_speed_ISS");
-	speed_ISS.addEventListener('change',function(ev){
-		console.log(speed_ISS.value);
-		var display_speed=document.getElementById("display_speed");
-		display_speed.innerHTML="The ISS' speed is : "+speed_ISS.value+" km/h"
-	});
 
+	var box_manual_speed=document.getElementById("box_manual_speed");
+	box_manual_speed.addEventListener('click', process_speed);
+	process_speed();
+
+	function process_speed(){
+		if (box_manual_speed.checked){
+			clearInterval(Interval_ISS);
+			Interval_Homemade=setInterval(function(){ask_speed()},5000);
+			var speed_ISS=document.getElementById("speed_ISS");
+			speed_ISS.innerHTML="<input id='range_speed_ISS' type='range' value='27600' max='50000' min='0' step='50'>"
+			var speed_ISS=document.getElementById("range_speed_ISS");
+			speed_ISS.addEventListener('change',function(ev){	
+				var display_speed=document.getElementById("display_speed");
+				display_speed.innerHTML="The ISS' speed is : "+speed_ISS.value+" km/h"
+				});
+			}
+		else{
+			clearInterval(Interval_Homemade);
+			Interval_ISS=setInterval(function(){send_request()},5000);
+			var speed_ISS=document.getElementById("speed_ISS");
+			speed_ISS.innerHTML="";
+			var display_speed=document.getElementById("display_speed");
+			display_speed.innerHTML="The ISS' speed is : 27600 km/h";
+		}
+	}
+
+/* Fonction de conversion de XML vers JSON*/
 	function xmlToJson(xml) {
 		var obj = {};
 		if (xml.nodeType == 1) {
