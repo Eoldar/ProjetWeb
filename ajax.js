@@ -79,59 +79,158 @@
 	};
 
 
-	function ask_speed(v,lat,lon){
+	  var earth = {
+	    radius: 6371,   // km
+	    speed: 1/240,   // deg/sec
+	    rotation: 0
+	  };
+
+	  var iss = {
+	    speed: 7+2/3,    // km/sec
+	    altitude: 400,
+	    angle: 51.64,       // deg
+
+	    latitude: null,     // deg
+	    longitude: null,    // deg
+
+	    polar: Math.PI/2,   // rad
+	    azimuth: 0,         // rad
+	    time: 0
+	  };
+
+	  function update_iss(time_factor=1){
+	    if(iss.time == 0){ init(); }
+
+	    var time = Date.now();
+	    var dt = (time - iss.time)/1000;    // sec
+	    iss.time = time;
+
+	    iss.azimuth += time_factor*dt * iss.speed/(iss.altitude + earth.radius);
+	    iss.azimuth = iss.azimuth%(2*Math.PI);
+
+	    var x = earth.radius * Math.cos(iss.azimuth)*Math.sin(iss.polar);   //coordonnées dans le repère lié à l'ISS
+	    var y = earth.radius * Math.sin(iss.azimuth)*Math.sin(iss.polar);
+	    var z = earth.radius * Math.cos(iss.polar);
+
+	    var rot_angle = deg_rad(iss.angle);   // rotation pour l'inclinaison de l'ISS
+	    var rotation = rotate(x,y,z,rot_angle,'y');
+	    x = rotation[0], y = rotation[1], z = rotation[2];
+
+	    earth.rotation += time_factor*dt * 2*Math.PI/86400;   // rotation de la Terre
+	    earth.rotation = earth.rotation%(2*Math.PI);
+	    rotation = rotate(x,y,z,earth.rotation,'z');
+	    x = rotation[0], y = rotation[1], z = rotation[2];
+
+	    var temp = (z/earth.radius);
+	    iss.latitude = rad_deg( Math.asin(temp) );
+	    iss.longitude = rad_deg( Math.atan2(y,x) );
+
+			markers.clearLayers();
+			latitude=Math.round(iss.latitude*1000)/1000;
+			longitude=Math.round(iss.longitude*1000)/1000;
+
+			var icone = L.icon({iconUrl:'Pictures/ISS.png', iconSize:[50, 50], iconAnchor:[25,25], popupAnchor:[0,-25]});
+			var marker = L.marker([latitude, longitude],{icon: icone});
+			markers.addLayer(marker);
+
+			var coords=document.getElementById("coordinates");
+			if (latitude>=0){var LAT="N"}
+			else if (latitude<0){var LAT="S"};
+			if (longitude>=0){var LON="E"}
+			else if (longitude<0){var LON="W"};
+			coords.innerHTML="<p>The ISS' coordinates are :<br> Latitude : "+Math.abs(latitude)+"° "+LAT+" ---- Longitude : "+Math.abs(longitude)+"° "+LON+"</p>";
+
+			if (position_ISS.length!=0 && old_lng<=180 && old_lng>=170 && longitude>=-180 && longitude<=-170){indice_trait.push(position_ISS.length);i=0;};
+			i++;
+			position_ISS.push(L.latLng(latitude, longitude));
+			old_lng=longitude;
+
+			for (var j=0; j<indice_trait.length-1;j++){
+				var ligne=L.polyline(position_ISS.slice(indice_trait[j],indice_trait[j+1]-1), {color:'red', weight: 5, opacity:1});
+				markers.addLayer(ligne);
+			};
+			var ligne_current=L.polyline(position_ISS.slice(indice_trait[indice_trait.length-1],indice_trait[indice_trait.length-1]+i), {color:'red', weight: 5, opacity:1});
+			markers.addLayer(ligne_current);
+			map.addLayer(markers);
+
+			var box_follow_ISS=document.getElementById("box_follow_ISS");
+			box_follow_ISS.addEventListener('click',function(ev){
+				if (box_follow_ISS.checked){
+					map.setView([latitude, longitude],5);
+				}
+			});
+			if (box_follow_ISS.checked){
+				map.setView([latitude, longitude],5);
+			}
+	  }
+
+	  function rotate(x,y,z,angle,axis){
+	    var x_, y_, z_;
+	    switch(axis){
+	      case 'x':
+	        x_ = x;
+	        y_ = y*Math.cos(angle) - z*Math.sin(angle);
+	        z_ = y*Math.sin(angle) + z*Math.cos(angle)
+	        break;
+
+	      case 'y':
+	        x_ = z*Math.sin(angle) + x*Math.cos(angle);
+	        y_ = y;
+	        z_ = z*Math.cos(angle) - x*Math.sin(angle);
+	        break;
+
+	      case 'z':
+	        x_ = x*Math.cos(angle) - y*Math.sin(angle);
+	        y_ = x*Math.sin(angle) + y*Math.cos(angle);
+	        z_ = z;
+	        break;
+	    }
+	    return [x_,y_,z_];
+	  }
+
+	  function init(){
+	    iss.latitude = 0;
+	    iss.longitude = 0;
+	    iss.polar = Math.PI/2;
+	    iss.azimuth = 0;
+	    iss.time = Date.now();
+	  }
+
+	  function rad_deg(rad){ return (rad*180/3.141592653589793)%360; }    //convertis les radians en degrés
+	  function deg_rad(deg){ return (deg*3.141592653589793/180)%(2*Math.PI); }    // et inversement
+
+
+
+	/*function ask_speed(v,lat,lon){
 		console.log(lat,lon,v);
-		lon=lon*Math.PI/180;
-		lat=lat*Math.PI/180;
-		var a=6378249.2;
-		var b=6356515.0;
-		var e2=(Math.pow(a,2)-Math.pow(b,2))/(Math.pow(a,2));
-		var W=Math.sqrt(1-e2*Math.pow(Math.sin(lat),2));
-		var N=a/W;
-		var h=400000;
+		azimuth=lon*Math.PI/180;
+		polar=90;
+		var earth_radius=6371000;
+		var iss_altitude=400000;
 
-		var angle_Z=(2*0.5*Math.PI*v)/(3600*40000);
-		lon=lon+angle_Z*180/Math.PI;
+		var angle_movement=((2*3*Math.PI*v)/(3600*(40000+400)))%(2*Math.PI);
+		azimuth=azimuth+angle_movement*180/Math.PI;
 
-		var X0=(N+h)*Math.cos(lon)*Math.cos(lat);
-		var Y0=(N+h)*Math.sin(lon)*Math.cos(lat);
-		var Z0=(N*(1-e2)+h)*Math.sin(lat);
+		var X0=(earth_radius)*Math.cos(azimuth)*Math.sin(polar);
+		var Y0=(earth_radius)*Math.sin(azimuth)*Math.sin(polar);
+		var Z0=(earth_radius)*Math.cos(polar);
 
-		var angle_Y=51.64*Math.PI/180;
-		var angle_Z_terre=2*0.5*Math.PI/86400;
+		var angle_ISS=(51.64*Math.PI/180)%(2*Math.PI);
+		var X1=X0*Math.cos(angle_ISS)+Z0*Math.sin(angle_ISS);
+		var Y1=Y0
+		var Z1=-X0*Math.sin(angle_ISS)+Z0*Math.cos(angle_ISS);
 
-		var angle_Y=0;
-		//var angle_Z_terre=0;
+		var angle_Z_terre=(2*3*Math.PI/86400)%(2*Math.PI);
+		var X2=X1*Math.cos(angle_Z_terre)-Y1*Math.sin(angle_Z_terre);
+		var Y2=X1*Math.sin(angle_Z_terre)+Y1*Math.cos(angle_Z_terre);
+		var Z2=Z1;
 
-		//Coordinates after the rotation of 51.64° of the ISS
-		var X2=X0
-		var Y2=Y0*Math.cos(angle_Y)-Z0*Math.sin(angle_Y);
-		var Z2=Y0*Math.sin(angle_Y)+Z0*Math.cos(angle_Y);
-		//Coordinates after the rotation of the Earth during 0.5s
-		var X3=X2*Math.cos(-angle_Z_terre)-Y2*Math.sin(-angle_Z_terre);
-		var Y3=X2*Math.sin(-angle_Z_terre)+Y2*Math.cos(-angle_Z_terre);
-		var Z3=Z2;
-
-		var p=Math.sqrt(X3*X3+Y3*Y3);
-		var lambda=Math.atan(Y3/X3);
-		var phi0=Math.atan(Z3/p);
-		var N0=a/(Math.sqrt(1-(e2*Math.sin(phi0)*Math.sin(phi0))));
-		var h0=(p/(Math.cos(phi0)))-N0
-		var phin;
-		var Nn;
-		var hn;
-		for (var i=0;i<10;i++){
-			phin=Math.atan((Z3*(N0+h0))/(p*(N0+h0-N0*e2)));
-			Nn=a/(Math.sqrt(1-(e2*Math.sin(phin)*Math.sin(phin))));
-			hn=(p/Math.cos(phin))-Nn;
-			N0=Nn;
-			h0=hn;
-		};
-
+		lat=(Math.asin(Z2/earth_radius)*180/Math.PI)%360;
+		lon=(Math.atan2(Y2,X2)*180/Math.PI)%360;
 
 		markers.clearLayers();
-		latitude=Math.round((phin*180/Math.PI)*1000)/1000;
-		longitude=Math.round((lambda*180/Math.PI)*1000)/1000;
+		latitude=Math.round(lat*1000)/1000;
+		longitude=Math.round(lon*1000)/1000;
 		console.log(latitude,longitude);
 
 		var icone = L.icon({iconUrl:'Pictures/ISS.png', iconSize:[50, 50], iconAnchor:[25,25], popupAnchor:[0,-25]});
@@ -167,7 +266,7 @@
 		if (box_follow_ISS.checked){
 			map.setView([latitude, longitude],5);
 		}
-	};
+	};*/
 
 
 	var zoom_picture_ISS=document.getElementById("picture_submit");
@@ -225,14 +324,14 @@
 	function process_speed(){
 		if (box_manual_speed.checked){
 			var speed_ISS=document.getElementById("speed_ISS");
-			speed_ISS.innerHTML="<input id='range_speed_ISS' type='range' value='27600' max='500000' min='-50000' step='100'>"
+			speed_ISS.innerHTML="<input id='range_speed_ISS' type='range' value='1' max='100' min='-100' step='1'>"
 			var speed_ISS=document.getElementById("range_speed_ISS");
 			speed_ISS.addEventListener('change',function(ev){
 				var display_speed=document.getElementById("display_speed");
-				display_speed.innerHTML="The ISS' speed is : "+speed_ISS.value+" km/h"
+				display_speed.innerHTML="The ISS' speed is : "+speed_ISS.value*27600+" km/h"
 			});
 			clearInterval(Interval_ISS);
-			Interval_Homemade=setInterval(function(){ask_speed(speed_ISS.value,latitude,longitude)},500);
+			Interval_Homemade=setInterval(function(){update_iss(speed_ISS.value)},500);
 			//ask_speed(speed_ISS.value,latitude,longitude);
 		}
 		else{
