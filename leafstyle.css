@@ -1,5 +1,6 @@
 @font-face{font-family: "Apple Chancery";src:url("FontFamily/Apple Chancery.ttf")}
 @font-face{font-family: "Trajan";src:url("FontFamily/TrajanPro-Regular.ttf")}
+
 body{font-family: "Trajan";background-color:#D5FCBB;}
 
 #follow_ISS{position:absolute;top:1.5%;left:0.5%;z-index:10;background-color:white;text-align:center;font-size:1.4em;border:3px solid black;border-radius:5px;padding:6px;}
@@ -27,6 +28,32 @@ body{font-family: "Trajan";background-color:#D5FCBB;}
 
 #zoom_ISS{position:absolute;bottom:5%;right:5%;width:190px;z-index:5;background-color:white;font-size:1.3em;border:3px solid black;border-radius:5px;padding:5px;}
 #picture_submit{position:relative;margin-left:calc(50% - 80px);}
+
+@media screen and (max-height: 800px){
+  #map{position:absolute;top:15%;width:99%;height:90.5%;border:3px solid black;border-radius:5px;}
+  #coordinates{position:relative;margin-top:75px;margin-left:calc(50% - 215px);z-index:10;width:430px;text-align:center;background-color:white;border:3px solid black;border-radius:5px;}
+}
+
+@media screen and (max-width: 1700px){
+  #title{font-family:"Apple Chancery";z-index:10;background-color:white;text-align:center;background-color:#D5FCBB;font-size:0.7em;}
+  #map{position:absolute;top:16%;width:99%;height:90.5%;border:3px solid black;border-radius:5px;}
+  #coordinates{position:relative;margin-top:100px;margin-left:calc(50% - 215px);z-index:10;width:430px;text-align:center;background-color:white;border:3px solid black;border-radius:5px;}
+  #follow_ISS{position:absolute;top:8%;left:0.5%;z-index:10;background-color:white;text-align:center;font-size:1.4em;border:3px solid black;border-radius:5px;padding:6px;}
+  #manual_speed{position:absolute;top:8%;left:30%;z-index:10;background-color:white;text-align:center;font-size:1.4em;border:3px solid black;border-radius:5px;padding:6px;}
+  #speed_ISS{position:absolute;top:8%;right:9.6%;z-index:10;}
+  #display_speed{position:absolute;right:10%;top:11%;z-index:10;width:300px;text-align:center;background-color:white;border:3px solid black;border-radius:5px;}
+}
+
+@media screen and (max-width: 900px){
+  #logo img{position:absolute;height:65px;width:65px;z-index:10;right:5px;top:55px;border:3px solid black;border-radius:5px;}
+  #title{font-family:"Apple Chancery";z-index:10;background-color:white;text-align:center;background-color:#D5FCBB;font-size:0.7em;}
+  #map{position:absolute;top:25%;width:99%;height:90.5%;border:3px solid black;border-radius:5px;}
+  #coordinates{position:relative;margin-top:175px;margin-left:calc(50% - 130px);z-index:10;width:260px;text-align:center;background-color:white;font-size:0.7em;border:3px solid black;border-radius:5px;}
+  #follow_ISS{position:absolute;top:6%;left:calc(50% - 60px);z-index:10;background-color:white;text-align:center;font-size:0.8em;border:3px solid black;border-radius:5px;padding:6px;}
+  #manual_speed{position:absolute;top:11%;left:calc(50% - 55px);z-index:10;background-color:white;text-align:center;font-size:0.8em;border:3px solid black;border-radius:5px;padding:6px;}
+  #speed_ISS{position:absolute;top:17%;left:calc(50% - 157px);z-index:10;}
+  #display_speed{position:absolute;left:calc(50% - 150px);top:21%;z-index:10;width:300px;text-align:center;background-color:white;font-size:0.8em;border:3px solid black;border-radius:5px;}
+}
 
 /*STYLE DE BOUTON*/
 /*STYLE BOX*/
