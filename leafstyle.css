@@ -1,58 +1,179 @@
-@font-face{font-family: "Apple Chancery";src:url("FontFamily/Apple Chancery.ttf")}
-@font-face{font-family: "Trajan";src:url("FontFamily/TrajanPro-Regular.ttf")}
+@font-face{font-family: "Apple Chancery";src:url("FontFamily/Apple Chancery.ttf")} /*Import of the title font*/
+@font-face{font-family: "Trajan";src:url("FontFamily/TrajanPro-Regular.ttf")} /*Import of the body font*/
 
-body{font-family: "Trajan";background-color:#D5FCBB;}
+body{  /*Green color and personal font*/
+  font-family: "Trajan";
+  background-color:#D5FCBB;
+  }
 
-#follow_ISS{position:absolute;top:1.5%;left:0.5%;z-index:10;background-color:white;text-align:center;font-size:1.4em;border:3px solid black;border-radius:5px;padding:6px;}
-
-#manual_speed{position:absolute;top:1.5%;left:15%;z-index:10;background-color:white;text-align:center;font-size:1.4em;border:3px solid black;border-radius:5px;padding:6px;}
-
-#title{font-family:"Apple Chancery";z-index:10;background-color:white;text-align:center;background-color:#D5FCBB;}
-
-#speed_ISS{position:absolute;top:1.5%;right:9.6%;z-index:10;}
-
-#logo img{position:absolute;height:65px;width:65px;z-index:10;right:5px;top:5px;border:3px solid black;border-radius:5px;}
-
-#map{position:absolute;top:8.5%;width:99%;height:90.5%;border:3px solid black;border-radius:5px;}
-
-#coordinates{position:relative;margin-top:25px;margin-left:calc(50% - 215px);z-index:10;width:430px;text-align:center;background-color:white;border:3px solid black;border-radius:5px;}
-
-#display_speed{position:absolute;right:10%;top:5%;z-index:10;width:300px;text-align:center;background-color:white;border:3px solid black;border-radius:5px;}
-
-#visualisation{position:absolute;bottom:0px;right:0px;margin-right:25px;margin-bottom:35px;z-index:9;}
-#picture img{border:3px solid black;border-radius:5px;}
-#message{position:absolute;width:100%;text-align:center;color:white;font-size:1.3em;margin-top:20px;margin-left: 5px;margin-right: 5px;}
-#cross{position:absolute;width:100%;}
-#cross img{margin-top:5px;margin-right:5px;float:right;width:20px;height:20px;z-index:10;}
-#cross img:hover{cursor:pointer;}
-
-#zoom_ISS{position:absolute;bottom:5%;right:5%;width:190px;z-index:5;background-color:white;font-size:1.3em;border:3px solid black;border-radius:5px;padding:5px;}
-#picture_submit{position:relative;margin-left:calc(50% - 80px);}
-
-@media screen and (max-height: 800px){
-  #map{position:absolute;top:15%;width:99%;height:90.5%;border:3px solid black;border-radius:5px;}
-  #coordinates{position:relative;margin-top:75px;margin-left:calc(50% - 215px);z-index:10;width:430px;text-align:center;background-color:white;border:3px solid black;border-radius:5px;}
+#follow_ISS{ /*Checkbox to follow the position of the ISS*/
+  position:absolute;
+  top:20px;
+  left:0.5%;
+  z-index:10;
+  background-color:white;
+  text-align:center;
+  font-size:1.4em;
+  border:3px solid black;
+  border-radius:5px;
+  padding:6px;
 }
+
+#manual_speed{ /*Checkbox to chose the manual speed*/
+  position:absolute;
+  top:20px;
+  left:15%;
+  z-index:10;
+  background-color:white;
+  text-align:center;
+  font-size:1.4em;
+  border:3px solid black;
+  border-radius:5px;
+  padding:6px;
+}
+
+#title{ /*Personal font*/
+  font-family:"Apple Chancery";
+  z-index:10;
+  background-color:white;
+  text-align:center;
+  background-color:#D5FCBB;
+}
+
+#speed_ISS{ /*Range to chose the speed of the ISS*/
+  position:absolute;
+  top:20px;
+  right:9.6%;
+  z-index:10;
+}
+
+#display_speed{ /*Display the speed of the ISS (always a factor of 27600)*/
+  position:absolute;
+  right:10%;
+  top:50px;
+  z-index:10;
+  width:300px;
+  text-align:center;
+  background-color:white;
+  border:3px solid black;
+  border-radius:5px;
+}
+
+#logo img{ /*THe little logo of the site*/
+  position:absolute;
+  height:65px;
+  width:65px;
+  z-index:10;
+  right:5px;
+  top:5px;
+  border:3px solid black;
+  border-radius:5px;
+}
+
+#map{ /*The entire leaflet map*/
+  position:absolute;
+  top:100px;
+  width:99%;
+  height:825px;
+  border:3px solid black;
+  border-radius:5px;
+}
+
+#coordinates{ /*Display the actual coordinates of the ISS*/
+  position:relative;
+  margin-top:50px;
+  margin-left:calc(50% - 215px);
+  z-index:10;
+  width:430px;
+  text-align:center;
+  background-color:white;
+  border:3px solid black;
+  border-radius:5px;
+}
+
+#visualisation{ /*Contain the picture, the text and the cross*/
+  position:absolute;
+  top:450px;
+  right:25px;
+  z-index:9;
+}
+
+#picture img{ /*Picture of the actual position*/
+  border:3px solid black;
+  border-radius:5px;
+}
+
+#message{ /*Little message for the world*/
+  position:absolute;
+  width:100%;
+  text-align:center;
+  color:white;
+  font-size:1.3em;
+  margin-top:20px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+#cross{ /*Red cross*/
+  position:absolute;
+  width:100%;
+}
+
+#cross img{ /*Cross img*/
+  margin-top:5px;
+  margin-right:5px;
+  float:right;
+  width:20px;
+  height:20px;
+  z-index:10;
+}
+
+#cross img:hover{ /*Change the cursor when you hover the cross*/
+  cursor:pointer;
+}
+
+#zoom_ISS{ /*The radio buttons to chose the zoom of the picture*/
+  position:absolute;
+  top:750px;
+  right:5%;
+  width:190px;
+  z-index:5;
+  background-color:white;
+  font-size:1.3em;
+  border:3px solid black;
+  border-radius:5px;
+  padding:5px;
+}
+
+#picture_submit{ /*Button to tweet like pesquet*/
+  position:relative;
+  margin-left:calc(50% - 80px);
+}
+
 
 @media screen and (max-width: 1700px){
-  #title{font-family:"Apple Chancery";z-index:10;background-color:white;text-align:center;background-color:#D5FCBB;font-size:0.7em;}
-  #map{position:absolute;top:16%;width:99%;height:90.5%;border:3px solid black;border-radius:5px;}
-  #coordinates{position:relative;margin-top:100px;margin-left:calc(50% - 215px);z-index:10;width:430px;text-align:center;background-color:white;border:3px solid black;border-radius:5px;}
-  #follow_ISS{position:absolute;top:8%;left:0.5%;z-index:10;background-color:white;text-align:center;font-size:1.4em;border:3px solid black;border-radius:5px;padding:6px;}
-  #manual_speed{position:absolute;top:8%;left:30%;z-index:10;background-color:white;text-align:center;font-size:1.4em;border:3px solid black;border-radius:5px;padding:6px;}
-  #speed_ISS{position:absolute;top:8%;right:9.6%;z-index:10;}
-  #display_speed{position:absolute;right:10%;top:11%;z-index:10;width:300px;text-align:center;background-color:white;border:3px solid black;border-radius:5px;}
+  #follow_ISS{position:absolute;top:75px;left:0.5%;z-index:10;background-color:white;text-align:center;font-size:1.4em;border:3px solid black;border-radius:5px;padding:6px;}
+  #title{
+    font-size:0.8em;
+  }
+  #map{position:absolute;top:150px;width:99%;height:750px;border:3px solid black;border-radius:5px;}
+  #coordinates{position:relative;margin-top:125px;margin-left:calc(50% - 215px);z-index:10;width:430px;text-align:center;background-color:white;border:3px solid black;border-radius:5px;}
+  #manual_speed{position:absolute;top:75px;left:30%;z-index:10;background-color:white;text-align:center;font-size:1.4em;border:3px solid black;border-radius:5px;padding:6px;}
+  #speed_ISS{position:absolute;top:75px;right:9.6%;z-index:10;}
+  #display_speed{position:absolute;right:10%;top:105px;z-index:10;width:300px;text-align:center;background-color:white;border:3px solid black;border-radius:5px;}
+  #zoom_ISS{position:absolute;top:725px;;right:5%;width:190px;z-index:5;background-color:white;font-size:1.3em;border:3px solid black;border-radius:5px;padding:5px;}
+  #visualisation{position:absolute;top:425px;right:25px;z-index:9;}
 }
 
-@media screen and (max-width: 900px){
+@media screen and (max-width: 950px){
   #logo img{position:absolute;height:65px;width:65px;z-index:10;right:5px;top:55px;border:3px solid black;border-radius:5px;}
   #title{font-family:"Apple Chancery";z-index:10;background-color:white;text-align:center;background-color:#D5FCBB;font-size:0.7em;}
-  #map{position:absolute;top:25%;width:99%;height:90.5%;border:3px solid black;border-radius:5px;}
-  #coordinates{position:relative;margin-top:175px;margin-left:calc(50% - 130px);z-index:10;width:260px;text-align:center;background-color:white;font-size:0.7em;border:3px solid black;border-radius:5px;}
-  #follow_ISS{position:absolute;top:6%;left:calc(50% - 60px);z-index:10;background-color:white;text-align:center;font-size:0.8em;border:3px solid black;border-radius:5px;padding:6px;}
-  #manual_speed{position:absolute;top:11%;left:calc(50% - 55px);z-index:10;background-color:white;text-align:center;font-size:0.8em;border:3px solid black;border-radius:5px;padding:6px;}
-  #speed_ISS{position:absolute;top:17%;left:calc(50% - 157px);z-index:10;}
-  #display_speed{position:absolute;left:calc(50% - 150px);top:21%;z-index:10;width:300px;text-align:center;background-color:white;font-size:0.8em;border:3px solid black;border-radius:5px;}
+  #map{position:absolute;top:230px;width:99%;height:666px;border:3px solid black;border-radius:5px;}
+  #coordinates{position:relative;margin-top:200px;margin-left:calc(50% - 130px);z-index:10;width:260px;text-align:center;background-color:white;font-size:0.7em;border:3px solid black;border-radius:5px;}
+  #follow_ISS{position:absolute;top:55px;left:calc(50% - 60px);z-index:10;background-color:white;text-align:center;font-size:0.8em;border:3px solid black;border-radius:5px;padding:6px;}
+  #manual_speed{position:absolute;top:100px;left:calc(50% - 55px);z-index:10;background-color:white;text-align:center;font-size:0.8em;border:3px solid black;border-radius:5px;padding:6px;}
+  #speed_ISS{position:absolute;top:155px;left:calc(50% - 157px);z-index:10;}
+  #display_speed{position:absolute;left:calc(50% - 150px);top:185px;z-index:10;width:300px;text-align:center;background-color:white;font-size:0.8em;border:3px solid black;border-radius:5px;}
 }
 
 /*STYLE DE BOUTON*/

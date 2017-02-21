@@ -47,8 +47,8 @@
 			zoom=teleobjective_zoom_ISS.value;};
 		if (zoom!=0){
 			var picture_ISS=document.getElementById("picture");
-			var height=Math.round(window.innerHeight/2);
-			var width=Math.round(window.innerWidth/3);
+			var height=450;
+			var width=600;
 			picture_ISS.innerHTML="<img src='https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/"+longitude+","+latitude+","+zoom+","+Math.random()*360+",50/"+width+"x"+height+"?access_token=pk.eyJ1IjoiZW9sZGFyIiwiYSI6ImNpeW4xOG1hMjAwNGozM3FsYnFheWJzOXYifQ.hZAFQxA9xQWMObZqfWdtog' alt='PictureFromISS'/>"
 			var picture_cross=document.getElementById("cross");
 			picture_cross.innerHTML="<img id='cross_click' src='Pictures/Cross.png' alt='Exit'>";
